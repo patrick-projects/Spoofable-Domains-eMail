@@ -25,7 +25,6 @@ def check_spf(domain):
         pass
 
     # Safely update counter
-    # Safely update counter
     with lock:
         counter += 1
         if counter % 10000 == 0:
