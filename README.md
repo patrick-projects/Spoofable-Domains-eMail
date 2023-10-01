@@ -1,4 +1,4 @@
-# top-million-domains
+# ReadMe
 
 python3 search-dns.py <domains_file>
 
