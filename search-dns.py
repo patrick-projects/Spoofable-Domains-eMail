@@ -20,7 +20,7 @@ def check_spf(domain):
                     decoded_txt = txt_string.decode('utf-8', 'ignore')
 
                 if "relay.mailchannels.net" in decoded_txt:
-                    print(f"{domain} has an SPF record containing relay.mailchannels.net.")
+                    print(f"{domain} can be spoofed")
     except (dns.resolver.NoAnswer, dns.resolver.NXDOMAIN):
         pass
 
@@ -28,7 +28,7 @@ def check_spf(domain):
     # Safely update counter
     with lock:
         counter += 1
-        if counter % 1000 == 0:
+        if counter % 10000 == 0:
             print(f"Processed {counter} out of {len(domains)} domains.")
 
 if __name__ == "__main__":
@@ -43,5 +43,6 @@ if __name__ == "__main__":
         print("File not found. Please provide a valid file path.")
         exit(1)
 
-    with ThreadPoolExecutor() as executor:
+    with ThreadPoolExecutor(max_workers=50) as executor:  # <-- This is where you make the change
         executor.map(check_spf, domains)
+
